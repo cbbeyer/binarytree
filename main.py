@@ -18,24 +18,24 @@ def main():
     binary_tree.set('k', 'K')
 
     print('Initial tree:')
-    # debug_print()
+    binary_tree.debug_print()
 
     print('\nLookups:')
+    binary_tree.get('e')
     # get()
     # get()
-    # get()
 
-    print('\nBFS:')
-    # walk_bfs()
+    # print('\nBFS:')
+    # binary_tree.walk_bfs(binary_tree.root)
 
-    print('\nDFS inorder:')
-    binary_tree.walk_dfs_inorder(binary_tree.root)
-
-    print('\nDFS preorder:')
-    binary_tree.walk_dfs_preorder(binary_tree.root)
-
-    print('\nDFS postorder:')
-    binary_tree.walk_dfs_postorder(binary_tree.root)
+    # print('\nDFS inorder:')
+    # binary_tree.walk_dfs_inorder(binary_tree.root)
+    #
+    # print('\nDFS preorder:')
+    # binary_tree.walk_dfs_preorder(binary_tree.root)
+    #
+    # print('\nDFS postorder:')
+    # binary_tree.walk_dfs_postorder(binary_tree.root)
 
 # Runner
 if __name__ == '__main__':

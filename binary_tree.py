@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from collections import deque
 
 class BinaryTree(object):
     '''Makes a binary tree object'''
@@ -18,24 +19,24 @@ class BinaryTree(object):
             self._add_node(self.root, node)
 
 
-    def _add_node(self, oldnode, newnode):
-        if newnode.key >= oldnode.key:
-            if oldnode.right is not None:
-                self._add_node(oldnode.right, newnode)
+    def _add_node(self, old_node, new_node):
+        if new_node.key >= old_node.key:
+            if old_node.right is not None:
+                self._add_node(old_node.right, new_node)
             else:
-                oldnode.right = newnode
-                newnode.parent = oldnode
+                old_node.right = new_node
+                new_node.parent = old_node
         else:
-            if oldnode.left is not None:
-                self._add_node(oldnode.left, newnode)
+            if old_node.left is not None:
+                self._add_node(old_node.left, new_node)
             else:
-                oldnode.left = newnode
-                newnode.parent = oldnode
+                old_node.left = new_node
+                new_node.parent = old_node
 
 
     def get(self, key):
-        pass
-
+        test = self._find(key, self.root)
+        print(test)
 
     def remove(self, key):
         pass
@@ -62,21 +63,58 @@ class BinaryTree(object):
             print('{}'.format(node.value))
 
 
-    def walk_bfs(self):
-        pass
+    def walk_bfs(self, node):
+        q = deque([node])
+        current_level = 1
 
+        while len(q) > 0:
+
+            current_node = q.popleft()
+            print(current_node.value)
+
+            if current_node.left != None:
+                q.append(current_node.left)
+
+            if current_node.right != None:
+                q.append(current_node.right)
+
+            current_level += 1
 
     def debug_print(self):
-        if(self.root != None):
-            self.walk_dfs_inorder(self.root)
+        current_level = [self.root]
 
+        while current_level:
+            next_level = list()
 
-    def _replace_node(self, oldnode, newnode):
+            for node in current_level:
+                if node.parent is not None:
+                    print('{}({})'.format(node.key, node.parent.key), end='')
+                else:
+                    print('{}({})'.format(node.key, '-'), end='')
+
+                if node.left:
+                    next_level.append(node.left)
+                if node.right:
+                    next_level.append(node.right)
+            print()
+            current_level = next_level
+
+    def _replace_node(self, old_node, new_node):
         pass
 
 
-    def _find(self, key):
-        pass
+    def _find(self, key, node):
+        if node.key is not None:
+            print(key,'----------')
+            if node.key == key:
+                return node
+            else:
+                if node.left is not None:
+                    self._find(key, node.left)
+                elif node.right is not None:
+                    self._find(key, node.right)
+                else:
+                    print('this key could not be found')
 
 
 class Node(object):
