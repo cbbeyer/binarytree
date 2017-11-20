@@ -1,3 +1,5 @@
+import sys
+
 from binary_tree import BinaryTree
 
 
@@ -51,10 +53,8 @@ def main():
 
 # Runner
 if __name__ == '__main__':
-    main()
-
-    # with open('output.json', 'w') as f:
-    #     orig_stdout = sys.stdout
-    #     sys.stdout = f
-    # RUN MAIN HERE
-    #     sys.stdout = orig_stdout
+    with open('output.txt', 'w') as f:
+        orig_stdout = sys.stdout
+        sys.stdout = f
+        main()
+        sys.stdout = orig_stdout
