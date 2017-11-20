@@ -56,3 +56,33 @@ class BinaryTreeTesting(unittest.TestCase):
         binary_tree.remove('b')
 
         self.assertEqual(binary_tree.root.right.value, 'B')
+
+    def test_remove_node_with_children_failure(self):
+        binary_tree = self.test_create_binary_tree()
+
+        binary_tree.set('a', 'A')
+        binary_tree.set('b', 'B')
+        binary_tree.set('c', 'C')
+        binary_tree.set('h', 'H')
+        binary_tree.set('j', 'J')
+        binary_tree.set('k', 'K')
+        binary_tree.set('g', 'G')
+
+        binary_tree.remove('h')
+
+        self.assertEqual(binary_tree.root.right.right.right.value, 'J')
+
+    def test_remove_node_with_children(self):
+        binary_tree = self.test_create_binary_tree()
+
+        binary_tree.set('a', 'A')
+        binary_tree.set('b', 'B')
+        binary_tree.set('c', 'C')
+        binary_tree.set('h', 'H')
+        binary_tree.set('j', 'J')
+        binary_tree.set('k', 'K')
+        binary_tree.set('g', 'G')
+
+        binary_tree.remove('h')
+
+        self.assertEqual(binary_tree.root.right.right.right.value, 'G')

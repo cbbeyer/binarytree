@@ -45,30 +45,20 @@ class BinaryTree(object):
         node = self._find(key, self.root)
 
         if not node.left and not node.right:
-            temp_parent = node.parent
-            node.parent = None
-
-            parent_node = self._find(temp_parent.key, temp_parent)
-            if parent_node.key < node.key:
-                parent_node.right = None
+            if node.parent.key < node.key:
+                node.parent.right = None
             else:
-                parent_node.left = None
+                node.parent.left = None
 
         elif node.left and not node.right:
-            temp_parent = node.parent
+            node.parent.left = node.left
+            node.left.parent = node.parent
             node.parent = None
-
-            parent_node = self._find(temp_parent.key, temp_parent)
-            parent_node.left = node.left
-            node.left.parent = parent_node
 
         elif node.right and not node.left:
-            temp_parent = node.parent
+            node.parent.right = node.right
+            node.right.parent = node.parent
             node.parent = None
-
-            parent_node = self._find(temp_parent.key, temp_parent)
-            parent_node.right = node.right
-            node.right.parent = parent_node
 
         else:
             replace_child = self.replace_with_child(node.left)
