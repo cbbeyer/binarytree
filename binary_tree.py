@@ -35,12 +35,55 @@ class BinaryTree(object):
 
 
     def get(self, key):
-        test = self._find(key, self.root)
-        print(test)
+        try:
+            node = self._find(key, self.root)
+            print(node.value)
+        except:
+            print('This key could not be found in the binary tree')
 
     def remove(self, key):
-        pass
+        node = self._find(key, self.root)
 
+        if not node.left and not node.right:
+            temp_parent = node.parent
+            node.parent = None
+
+            parent_node = self._find(temp_parent.key, temp_parent)
+            if parent_node.key < node.key:
+                parent_node.right = None
+            else:
+                parent_node.left = None
+
+        elif node.left and not node.right:
+            temp_parent = node.parent
+            node.parent = None
+
+            parent_node = self._find(temp_parent.key, temp_parent)
+            parent_node.left = node.left
+            node.left.parent = parent_node
+
+        elif node.right and not node.left:
+            temp_parent = node.parent
+            node.parent = None
+
+            parent_node = self._find(temp_parent.key, temp_parent)
+            parent_node.right = node.right
+            node.right.parent = parent_node
+
+        else:
+            replace_child = self.replace_with_child(node.left)
+            node.key = replace_child.key
+            node.value = replace_child.value
+            remove_right = self._find(replace_child.parent.key, self.root)
+            replace_child.parent = None
+            remove_right.right = None
+
+
+    def replace_with_child(self, node):
+        if node.right is not None:
+            return self.replace_with_child(node.right)
+        else:
+            return node
 
     def walk_dfs_inorder(self, node):
         if(node != None):
@@ -88,9 +131,9 @@ class BinaryTree(object):
 
             for node in current_level:
                 if node.parent is not None:
-                    print('{}({})'.format(node.key, node.parent.key), end='')
+                    print('{}({}) '.format(node.key, node.parent.key), end='')
                 else:
-                    print('{}({})'.format(node.key, '-'), end='')
+                    print('{}({}) '.format(node.key, '-'), end='')
 
                 if node.left:
                     next_level.append(node.left)
@@ -104,18 +147,16 @@ class BinaryTree(object):
 
 
     def _find(self, key, node):
-        if node.key is not None:
-            print(key,'----------')
-            if node.key == key:
+        if node is not None:
+            if node.key < key:
+                return self._find(key, node.right)
+            elif node.key > key:
+                return self._find(key, node.left)
+            elif node.key == key:
                 return node
             else:
-                if node.left is not None:
-                    self._find(key, node.left)
-                elif node.right is not None:
-                    self._find(key, node.right)
-                else:
-                    print('this key could not be found')
-
+                error_message = 'This key could not be found in the binary tree.'
+                return error_message
 
 class Node(object):
     '''Creates a node on the binary tree'''
