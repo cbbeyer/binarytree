@@ -17,25 +17,25 @@ def main():
     binary_tree.set('i', 'I')
     binary_tree.set('k', 'K')
 
-    # print('Initial tree:')
-    # binary_tree.debug_print()
-    #
-    # print('\nLookups:')
-    # binary_tree.get('f')
-    # binary_tree.get('b')
-    # binary_tree.get('i')
-    #
-    # print('\nBFS:')
-    # binary_tree.walk_bfs(binary_tree.root)
-    #
-    # print('\nDFS preorder:')
-    # binary_tree.walk_dfs_preorder(binary_tree.root)
-    #
-    # print('\nDFS inorder:')
-    # binary_tree.walk_dfs_inorder(binary_tree.root)
-    #
-    # print('\nDFS postorder:')
-    # binary_tree.walk_dfs_postorder(binary_tree.root)
+    print('Initial tree:')
+    binary_tree.debug_print()
+
+    print('\nLookups:')
+    binary_tree.get('f')
+    binary_tree.get('b')
+    binary_tree.get('i')
+
+    print('\nBFS:')
+    binary_tree.walk_bfs(binary_tree.root)
+
+    print('\nDFS preorder:')
+    binary_tree.walk_dfs_preorder(binary_tree.root)
+
+    print('\nDFS inorder:')
+    binary_tree.walk_dfs_inorder(binary_tree.root)
+
+    print('\nDFS postorder:')
+    binary_tree.walk_dfs_postorder(binary_tree.root)
 
     print('\nRemove b:')
     binary_tree.remove('b')
@@ -52,3 +52,9 @@ def main():
 # Runner
 if __name__ == '__main__':
     main()
+
+    # with open('output.json', 'w') as f:
+    #     orig_stdout = sys.stdout
+    #     sys.stdout = f
+    # RUN MAIN HERE
+    #     sys.stdout = orig_stdout
